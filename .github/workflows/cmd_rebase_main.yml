@@ -1,0 +1,16 @@
+on: issue_comment
+
+jobs:
+  pr_commented:
+    name: Rebase on master
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == 'rebase_main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git rebase main
+          git push origin ${GITHUB_REF}
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: ${{ github.event.comment.body }}
