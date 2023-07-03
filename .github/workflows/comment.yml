@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo A comment on PR $NUMBER with body "${BODY}"
+          echo A comment on PR $NUMBER with body "${BODY}" and branch "${BRANCH}"
         env:
           NUMBER: ${{ github.event.issue.number }}
           BODY: ${{ github.event.comment.body }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
