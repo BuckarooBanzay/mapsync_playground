@@ -10,8 +10,6 @@ jobs:
       - run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git checkout ${GITHUB_REF}
           git rebase main
-          git push origin ${GITHUB_REF}
-        env:
-          NUMBER: ${{ github.event.issue.number }}
-          BODY: ${{ github.event.comment.body }}
+          git push -f origin ${GITHUB_REF}
